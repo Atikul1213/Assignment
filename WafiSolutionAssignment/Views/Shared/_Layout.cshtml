@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WafiSolutionAssignment.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://DataTables/datatables.css" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-2.0.8/datatables.min.css">
+    <link href="~/datatables/datatables.min.css" rel="stylesheet" />
+    <link href="~/datatables/datatables.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.dataTables.css" />
+    <style>
+
+        .nav-item.active .nav-link {
+            font-weight: bold; /* Example: Make the font bold */
+            color: #007bff; /* Example: Change text color */
+        }
+
+    </style>
+
 </head>
 <body>
     <header>
@@ -19,12 +39,15 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                        <li class="nav-item @(Context.Request.Path.StartsWithSegments("/Home/Index") ? "active" : "")">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+
+                        <li class="nav-item @(Context.Request.Path.StartsWithSegments("/Employee/Index") ? "active" : "")">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">Employee</a>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -41,9 +64,31 @@
             &copy; 2024 - WafiSolutionAssignment - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <script src="~/datatables/datatables.min.js"></script>
+    <script src="~/datatables/datatables.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://DataTables/datatables.js"></script>
+
+    <script src="https://cdn.datatables.net/2.1.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.0.8/datatables.min.js" asp-append-version="true"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.nav-item').each(function () {
+            var link = $(this).find('.nav-link');
+            if (link.attr('href') === window.location.pathname) {
+                $(this).addClass('active');
+            }
+        });
+    });
+
+</script>
