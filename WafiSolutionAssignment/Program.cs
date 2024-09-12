@@ -1,4 +1,5 @@
 using BookHub.Data;
+using BookHub.Factories;
 using BookHub.Repository;
 using BookHub.Services;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IEmployeeModelFactory, EmployeeModelFactory>();
 
 var app = builder.Build();
 

@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using BookHub.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WafiSolutionAssignment.Controllers
 {
     public class EmployeeController : Controller
     {
-        public EmployeeController()
-        {
 
+        private readonly IEmployeeService _employeeService;
+        public EmployeeController(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
         }
 
 
 
+        /*
         public IActionResult Index()
         {
 
@@ -29,7 +32,6 @@ namespace WafiSolutionAssignment.Controllers
             return View(model);
         }
 
-        /*
 
 
 
