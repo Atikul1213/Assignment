@@ -21,8 +21,12 @@ namespace BookHub.Factories
                 throw new ArgumentNullException();
 
             EmployeeModel model = new EmployeeModel();
-            model.Name = category.Name;
-            model.Id = category.Id;
+            model.FirstName = employee.FirstName;
+            model.LastName = employee.LastName;
+            model.Email = employee.Email;
+            model.MobileNumber = employee.MobileNumber;
+            model.ImageUrl = employee.ImageUrl;
+            model.DateOfBirth = employee.DateOfBirth;
             return model;
         }
 
@@ -30,10 +34,16 @@ namespace BookHub.Factories
         public EmployeeListModel PrepareEmployeeListModel()
         {
 
-            return _employeeService.GetAllEmployees()
-                  .Select(emp => new EmployeeModel { Name = cat.Name, Id = cat.Id })
-                  .ToList();
+            var employees = _employeeService.GetAllEmployees();
+            EmployeeListModel employeeListModel = new EmployeeListModel();
 
+            foreach (var employee in employees)
+            {
+                var model = PrepareEmployeeModel(employee);
+                employeeListModel.EmployeeModel.Add(model);
+            }
+
+            return employeeListModel;
         }
 
 

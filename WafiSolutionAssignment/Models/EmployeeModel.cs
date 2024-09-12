@@ -15,8 +15,10 @@ namespace WafiSolutionAssignment.Models
         public string LastName { get; set; }
         [DisplayName("Mobile Number")]
         public string MobileNumber { get; set; }
-        [DisplayName("Image")]
 
+        [DisplayName("Date of Birth")]
+        public DateTime DateOfBirth { get; set; }
+        [DisplayName("Image")]
         public string ImageUrl { get; set; }
         [DisplayName("Email")]
         public string Email { get; set; }

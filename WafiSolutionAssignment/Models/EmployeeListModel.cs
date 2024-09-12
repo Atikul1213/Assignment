@@ -4,9 +4,9 @@
     {
         public EmployeeListModel()
         {
-            EmployeeModels = new List<EmployeeModel>();
+            EmployeeModel = new List<EmployeeModel>();
         }
 
-        public IList<EmployeeModel> EmployeeModels { get; set; }
+        public IList<EmployeeModel> EmployeeModel { get; set; }
     }
 }
