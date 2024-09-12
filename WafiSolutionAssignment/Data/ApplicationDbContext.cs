@@ -1,25 +1,20 @@
-﻿using BookHub.Domain;
-using BookHub.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using WafiSolutionAssignment.Domain;
 
 namespace BookHub.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :  base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
         }
 
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<WareHouse> WareHouses { get; set; }
-
-        public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Employees> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+
 
         }
 
