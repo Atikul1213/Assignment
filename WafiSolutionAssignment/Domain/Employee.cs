@@ -13,9 +13,7 @@ namespace WafiSolutionAssignment.Domain
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string MobileNumber { get; set; }
-
         public string ImageUrl { get; set; }
-
         public string Email { get; set; }
 
     }

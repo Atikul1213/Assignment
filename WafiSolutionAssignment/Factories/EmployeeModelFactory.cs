@@ -46,9 +46,17 @@ namespace BookHub.Factories
             return employeeListModel;
         }
 
+        public Employee PrepareEmployee(EmployeeModel model)
+        {
+            var entity = new Employee();
+            entity.FirstName = model.FirstName;
+            entity.LastName = model.LastName;
+            entity.Email = model.Email;
+            entity.MobileNumber = model.MobileNumber;
+            entity.ImageUrl = model.ImageUrl;
+            entity.DateOfBirth = model.DateOfBirth;
 
-
-
-
+            return entity;
+        }
     }
 }

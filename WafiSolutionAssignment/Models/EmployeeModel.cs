@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,6 +20,7 @@ namespace WafiSolutionAssignment.Models
         [DisplayName("Date of Birth")]
         public DateTime DateOfBirth { get; set; }
         [DisplayName("Image")]
+        [ValidateNever]
         public string ImageUrl { get; set; }
         [DisplayName("Email")]
         public string Email { get; set; }
