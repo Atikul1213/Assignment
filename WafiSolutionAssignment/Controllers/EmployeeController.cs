@@ -24,9 +24,21 @@ namespace WafiSolutionAssignment.Controllers
 
         public IActionResult Index()
         {
-            var model = _employeeModelFactory.PrepareEmployeeListModel();
-            return View(model);
+
+            return View(new EmployeeSearchModel());
         }
+
+
+
+        [HttpPost]
+        public IActionResult GetAll(EmployeeSearchModel searchmodel)
+        {
+
+            var model = _employeeModelFactory.PrepareEmployeeListModel(searchmodel);
+
+            return Json(new { data = model });
+        }
+
 
 
         public IActionResult Create()
@@ -67,6 +79,98 @@ namespace WafiSolutionAssignment.Controllers
             return View();
 
         }
+
+
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            var employee = _employeeService.GetEmployeeById(id.Value);
+
+            if (employee == null)
+                return NotFound();
+            var model = _employeeModelFactory.PrepareEmployeeModel(employee);
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(EmployeeModel employeeModel, IFormFile? file)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    string employeePath = Path.Combine(wwwRootPath, @"images\employee");
+
+                    using (var fileStream = new FileStream(Path.Combine(employeePath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+                    employeeModel.ImageUrl = @"\images\employee\" + fileName;
+                }
+
+                var entity = _employeeModelFactory.PrepareEmployee(employeeModel);
+
+                _employeeService.UpdateEmployee(entity);
+
+                TempData["success"] = "Edited Successfully";
+                return RedirectToAction("Index");
+            }
+            return View();
+
+        }
+
+
+
+
+
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+                return NotFound();
+
+            var employee = _employeeService.GetEmployeeById(id.Value);
+
+            if (employee == null)
+                return NotFound();
+            var model = _employeeModelFactory.PrepareEmployeeModel(employee);
+
+            return View(model);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+
+            if (id == null || id == 0)
+                return NotFound();
+
+
+            var employee = _employeeService.GetEmployeeById(id.Value);
+
+            if (employee == null)
+                return NotFound();
+
+            _employeeService.DeleteEmployee(employee);
+
+            TempData["success"] = "Delete Successfully";
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
 
 
     }

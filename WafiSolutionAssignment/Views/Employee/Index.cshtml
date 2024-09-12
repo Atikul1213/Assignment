@@ -1,1 +1,169 @@
-﻿
+﻿@model EmployeeSearchModel
+
+
+<div class="card-body p-4">
+    <form id="myForm" method="post" class="row">
+        <div class="">
+
+            <div class="">
+                <label asp-for="Name" class="p-0"></label>
+                <input id="name" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+              <div class="">
+                <label asp-for="DateOfBirth" class="p-0"></label>
+                <input id="dob" asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+
+              <div class="">
+                <label asp-for="Email" class="p-0"></label>
+                <input id="email" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+
+              <div class="">
+                <label asp-for="MobileNumber" class="p-0"></label>
+                <input id="mobile" asp-for="MobileNumber" class="form-control" />
+                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+            </div>
+
+
+            <div class="" pt-2>
+                <div class="col-6 col-md-3">
+                    <button id="mybutton" type="submit" class="btn btn-primary form-control">Search</button>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+
+
+<div class="container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">Employee List</h2>
+        </div>
+
+        <div class="col-6 text-end">
+            <a asp-controller="Employee" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-bookmark-plus-fill"></i>Create New Employee
+            </a>
+        </div>
+
+    </div>
+
+    <table id="myTable" class="table table-striped ">
+        <thead>
+            <tr>
+                @* <th>Options</th> *@
+                <th>Photo</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Date of Birth</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#myTable').DataTable({
+                serverSide: true,
+                processing: true,
+                ajax: {
+                    url: "@Url.Action("GetAll", "Employee")",
+                    type: "POST",
+                    data:{
+                            MaxPrice: $("#price").val(),
+                            SelectedCategoryId: $("#catid").val(),
+                            SearchName: $("#prodname").val(),
+                            length: d.length,
+                            start: d.start
+                        };
+                    }
+                },
+                rows: { "className": 'rowId' },
+                columns: [
+                    {
+                        "className": 'dt-control',
+                        "data": 'items.name',
+                        "title": 'Product Name',
+                        "orderable": true,
+                        "defaultContent": '',
+                    },
+                    { data: 'items.price', title: 'Price' },
+                    { data: 'items.category.name', title: 'Category Name' },
+                    {
+                        data: 'items.id',
+                        orderable: false,
+                        render: function (data) {
+                            return `
+                                                <div class="w-75 btn-group" role="group">
+                                                            <a href="/Employee/Edit/${data}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+                                                            <a href="/Employee/Details/${data}" class="btn btn-primary"><i class="bi bi-list-check"></i></a>
+                                                            <a href="/Employee/Delete/${data}" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+                                                </div>`;
+                        }
+                    }
+                ]
+
+
+            });
+
+ 
+
+            function loadProducts() {
+                var postData = {
+                    Name: $("#name").val(),
+                    DateOfBirth: $("#dob").val(),
+                    MobileNumber: $("#mobile").val(),
+                    Email : $("#email").val()
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: "@Url.Action("GetAll", "Employee")",
+                    data: postData,
+                    success: function (response) {
+                        table.clear().rows.add(response.data).draw();
+                    },
+                    error: function () {
+                        alert('Error fetching data.');
+                    }
+                });
+
+
+            }
+
+            $("#mybutton").click(function (e) {
+                e.preventDefault();
+                loadProducts();
+            });
+
+        });
+    </script>
+}
+
+

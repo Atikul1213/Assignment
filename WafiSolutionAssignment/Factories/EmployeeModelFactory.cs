@@ -13,8 +13,6 @@ namespace BookHub.Factories
             _employeeService = employeeService;
         }
 
-
-
         public EmployeeModel PrepareEmployeeModel(Employee employee)
         {
             if (employee == null)
@@ -31,11 +29,32 @@ namespace BookHub.Factories
         }
 
 
-        public EmployeeListModel PrepareEmployeeListModel()
+        public EmployeeListModel PrepareEmployeeListModel(EmployeeSearchModel searchModel)
         {
 
+            var name = searchModel.Name;
+            var dob = searchModel.DateOfBirth;
+            var email = searchModel.Email;
+            var mobile = searchModel.MobileNumber;
+
             var employees = _employeeService.GetAllEmployees();
+
+            if (name != null)
+                employees = employees.Where(x => x.FirstName.Contains(name)).ToList();
+
+            if (dob != DateTime.Now)
+                employees = employees.Where(x => x.DateOfBirth == dob).ToList();
+
+            if (email != null)
+                employees = employees.Where(x => x.Email == email).ToList();
+
+            if (mobile != null)
+                employees = employees.Where(x => x.MobileNumber == mobile).ToList();
+
             EmployeeListModel employeeListModel = new EmployeeListModel();
+
+            if (employees.Count() == 0)
+                return employeeListModel;
 
             foreach (var employee in employees)
             {

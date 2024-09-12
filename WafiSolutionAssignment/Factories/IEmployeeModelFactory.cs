@@ -8,6 +8,6 @@ namespace BookHub.Factories
         EmployeeModel PrepareEmployeeModel(Employee employee);
 
         Employee PrepareEmployee(EmployeeModel model);
-        EmployeeListModel PrepareEmployeeListModel();
+        EmployeeListModel PrepareEmployeeListModel(EmployeeSearchModel searchModel);
     }
 }

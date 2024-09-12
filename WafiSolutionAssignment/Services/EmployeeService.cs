@@ -33,9 +33,8 @@ namespace BookHub.Services
             _employeeRepository.Update(employee);
         }
 
-        public void DeleteEmployee(int id)
+        public void DeleteEmployee(Employee employee)
         {
-            var employee = _employeeRepository.Get(c => c.Id == id);
             _employeeRepository.Remove(employee);
         }
     }
