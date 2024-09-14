@@ -42,7 +42,7 @@ namespace BookHub.Factories
             if (name != null)
                 employees = employees.Where(x => x.FirstName.Contains(name)).ToList();
 
-            if (dob != DateTime.Now)
+            if (dob != DateTime.MinValue)
                 employees = employees.Where(x => x.DateOfBirth == dob).ToList();
 
             if (email != null)
@@ -59,6 +59,8 @@ namespace BookHub.Factories
             foreach (var employee in employees)
             {
                 var model = PrepareEmployeeModel(employee);
+                model.Id = employee.Id;
+                model.DateOfBirth.ToString("yyyy-MM-dd");
                 employeeListModel.EmployeeModel.Add(model);
             }
 
