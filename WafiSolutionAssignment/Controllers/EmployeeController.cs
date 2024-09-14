@@ -118,7 +118,7 @@ namespace WafiSolutionAssignment.Controllers
                 }
 
                 var entity = _employeeModelFactory.PrepareEmployee(employeeModel);
-
+                entity.Id = employeeModel.Id;
                 _employeeService.UpdateEmployee(entity);
 
                 TempData["success"] = "Edited Successfully";
@@ -167,10 +167,6 @@ namespace WafiSolutionAssignment.Controllers
 
             return RedirectToAction("Index");
         }
-
-
-
-
 
 
     }

@@ -25,7 +25,7 @@ namespace BookHub.Factories
             model.MobileNumber = employee.MobileNumber;
             model.ImageUrl = employee.ImageUrl;
             model.DateOfBirth = employee.DateOfBirth;
-            model.FullName = employee.FirstName + " " + employee.LastName;
+            model.FullName = employee.FullName;
             return model;
         }
 
@@ -41,7 +41,7 @@ namespace BookHub.Factories
             var employees = _employeeService.GetAllEmployees();
 
             if (name != null)
-                employees = employees.Where(x => x.FirstName.Contains(name)).ToList();
+                employees = employees.Where(x => x.FullName.Contains(name)).ToList();
 
             if (dob != DateTime.MinValue)
                 employees = employees.Where(x => x.DateOfBirth == dob).ToList();
@@ -73,10 +73,12 @@ namespace BookHub.Factories
             var entity = new Employee();
             entity.FirstName = model.FirstName;
             entity.LastName = model.LastName;
+            entity.FullName = model.FirstName + " " + model.LastName;
             entity.Email = model.Email;
             entity.MobileNumber = model.MobileNumber;
             entity.ImageUrl = model.ImageUrl;
             entity.DateOfBirth = model.DateOfBirth;
+
 
             return entity;
         }
