@@ -16,6 +16,8 @@ namespace WafiSolutionAssignment.Models
         public string LastName { get; set; }
         [DisplayName("Mobile Number")]
         public string MobileNumber { get; set; }
+        [ValidateNever]
+        public string FullName { get; set; }
 
         [DisplayName("Date of Birth")]
         public DateTime DateOfBirth { get; set; }

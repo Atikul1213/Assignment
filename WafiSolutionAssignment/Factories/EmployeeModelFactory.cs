@@ -25,6 +25,7 @@ namespace BookHub.Factories
             model.MobileNumber = employee.MobileNumber;
             model.ImageUrl = employee.ImageUrl;
             model.DateOfBirth = employee.DateOfBirth;
+            model.FullName = employee.FirstName + " " + employee.LastName;
             return model;
         }
 

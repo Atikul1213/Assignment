@@ -35,17 +35,6 @@ namespace WafiSolutionAssignment.Controllers
         {
 
             var employees = _employeeModelFactory.PrepareEmployeeListModel(searchModel);
-            var result = employees.EmployeeModel.Select(emp => new
-            {
-                ImageUrl = emp.ImageUrl ?? "/images/placeholder.png", // Default image if none
-                FirstName = emp.FirstName,
-                LastName = emp.LastName,
-                Email = emp.Email,
-                MobileNumber = emp.MobileNumber,
-                DateOfBirth = emp.DateOfBirth.ToString("yyyy-MM-dd"),
-                Id = emp.Id
-            }).ToList();
-
 
             return Json(employees.EmployeeModel);
         }
