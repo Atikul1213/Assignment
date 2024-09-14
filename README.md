@@ -1,5 +1,10 @@
 # WafiSolutionAssignment
 
+#How to Run
+
+### Copy the Github reposity and clone it into your visual stdio code and run the solution.  
+
+
 ### Index Page for show all Employees
 
 ![Index Page](./WafiSolutionAssignment/Images/Index.png)
