@@ -1,6 +1,8 @@
 # WafiSolutionAssignment
 </br>
-# How to Run
+
+
+# How to Run the code
 
 ### Copy the Github reposity and clone it into your visual stdio code and run the solution.  
 
