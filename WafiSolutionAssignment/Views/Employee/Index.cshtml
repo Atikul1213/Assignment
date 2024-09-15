@@ -6,26 +6,22 @@
 
     <form id="searchForm" method="post" class="row">
             <div class="col-md-3">
-                @* <label asp-for="Name" class="p-0"></label> *@
                 <input id="name" asp-for="Name" placeholder="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="col-md-2">
-                @* <label asp-for="DateOfBirth" class="p-0"></label> *@
                 <input id="dob" asp-for="DateOfBirth" placeholder="Date of Birth" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
 
             <div class="col-md-3">
-                @* <label asp-for="Email" class="p-0"></label> *@
                 <input id="email" asp-for="Email" placeholder="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
 
             <div class="col-md-2">
-                @* <label asp-for="MobileNumber" class="p-0"></label> *@
                 <input id="mobile" asp-for="MobileNumber" placeholder="Mobile" class="form-control" />
                 <span asp-validation-for="MobileNumber" class="text-danger"></span>
             </div>
@@ -147,7 +143,6 @@
             // Handle form submission
             $('#searchForm').submit(function (e) {
                 e.preventDefault();
-               
                 reloadTableData();
             });
 
