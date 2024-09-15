@@ -56,6 +56,7 @@ namespace BookHub.Factories
 
             if (employees.Count() == 0)
                 return employeeListModel;
+            employees = employees.Skip(searchModel.Start).Take(searchModel.Length).ToList();
 
             foreach (var employee in employees)
             {

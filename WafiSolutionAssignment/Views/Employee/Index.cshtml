@@ -6,31 +6,31 @@
 
     <form id="searchForm" method="post" class="row">
             <div class="col-md-3">
-                <label asp-for="Name" class="p-0"></label>
-                <input id="name" asp-for="Name" class="form-control" />
+                @* <label asp-for="Name" class="p-0"></label> *@
+                <input id="name" asp-for="Name" placeholder="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="col-md-2">
-                <label asp-for="DateOfBirth" class="p-0"></label>
-                <input id="dob" asp-for="DateOfBirth" class="form-control" />
+                @* <label asp-for="DateOfBirth" class="p-0"></label> *@
+                <input id="dob" asp-for="DateOfBirth" placeholder="Date of Birth" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
 
             <div class="col-md-3">
-                <label asp-for="Email" class="p-0"></label>
-                <input id="email" asp-for="Email" class="form-control" />
+                @* <label asp-for="Email" class="p-0"></label> *@
+                <input id="email" asp-for="Email" placeholder="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
 
             <div class="col-md-2">
-                <label asp-for="MobileNumber" class="p-0"></label>
-                <input id="mobile" asp-for="MobileNumber" class="form-control" />
+                @* <label asp-for="MobileNumber" class="p-0"></label> *@
+                <input id="mobile" asp-for="MobileNumber" placeholder="Mobile" class="form-control" />
                 <span asp-validation-for="MobileNumber" class="text-danger"></span>
             </div>
 
-            <div class="col-md-2 mt-3">
+            <div class="col-md-2 mt-1">
                 <button id="searchButton" type="submit" class="btn btn-primary form-control">Search</button>
             </div>
              
@@ -114,11 +114,15 @@
 
             // Function to reload table data
             function reloadTableData() {
+                var pageLength = table.page.len();
+                var pageStart = table.page.info().start;
                 var searchData = {
                     Name: $('#name').val(),
                     DateOfBirth: $('#dob').val(),
                     MobileNumber: $('#mobile').val(),
-                    Email: $('#email').val()
+                    Email: $('#email').val(),
+                     length: pageLength,
+                     start: pageStart
                 };
                 console.log("searchData: ", searchData);
 
