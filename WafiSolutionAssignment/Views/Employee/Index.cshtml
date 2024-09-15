@@ -2,7 +2,7 @@
 
 
 <div class="card-body p-4">
-    <div>
+    
 
     <form id="searchForm" method="post" class="row">
             <div class="col-md-3">
@@ -33,7 +33,7 @@
 
 
     </form>
-    </div>
+
 
 </div>
 
@@ -65,19 +65,25 @@
 
 </div>
 
+
+
+
 @section Scripts{
     <script>
         $(document).ready(function () {
             // Initialize the datatable
 
-
+             
             var table = $('#myTable1').DataTable({
                 serverSide: true,
                 processing: true,
+                ordering: true, // Enable column ordering
+                searching: true, // Enable global search functionality
+                
                 ajax: {
                     url: "@Url.Action("GetAll", "Employee")",
                     type: "POST",
-                    searchData: function (d) {
+                    data: function (d) {
                         return $.extend({}, d, {
                             Name: $('#name').val(),
                             DateOfBirth: $('#dob').val(),
@@ -85,7 +91,7 @@
                             Email: $('#email').val(),
                             length: d.length,
                             start: d.start
-                        });
+                        })
                     }
                 },
                 "columns": [
@@ -111,30 +117,32 @@
                         }
                        
                     }
-                ]
+                ],
+                "orderable": true
+                
             });
 
             // Function to reload table data
-            function reloadTableData() {
+            function reloadTableData(){
                 var pageLength = table.page.len();
                 var pageStart = table.page.info().start;
-                var searchData= {
+                var searchData1= {
                   
                         Name: $('#name').val(),
                         DateOfBirth: $('#dob').val(),
                         MobileNumber: $('#mobile').val(),
                         Email: $('#email').val(),
                         length: pageLength,
-                         start: pageStart
+                        start: pageStart
                     
                 };
-                console.log("searchData: ", searchData);
+                console.log("searchData1: ", searchData1);
 
                 $.ajax({
                     url: '@Url.Action("GetAll", "Employee")',
                     type: 'POST',
                     // contentType: 'application/json',
-                    data: searchData,
+                    data: searchData1,
                     success: function (data) {
                         console.log("return data: ", data);
                         table.clear();
@@ -145,16 +153,16 @@
                         console.error("Error fetching data: " + error);
                     }
                 });
+                
             }
 
-            // Handle form submission
-            $('#searchForm').click(function (e) {
-                e.preventDefault();
-                reloadTableData();
+            $('#searchButton').click(function (e) {
+                
+                e.preventDefault();// Prevent default form submission
+                reloadTableData();  // Call reload function to refresh data
             });
 
-            // // Load initial data
-            // reloadTableData();
+ 
         });
     </script>
 

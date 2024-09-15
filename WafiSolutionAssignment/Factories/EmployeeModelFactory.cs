@@ -56,7 +56,7 @@ namespace BookHub.Factories
                 employees = employees.Where(x => x.DateOfBirth == dob).ToList();
 
             if (email != null)
-                employees = employees.Where(x => x.Email == email).ToList();
+                employees = employees.Where(x => x.Email.Contains(email)).ToList();
 
             if (mobile != null)
                 employees = employees.Where(x => x.MobileNumber == mobile).ToList();
