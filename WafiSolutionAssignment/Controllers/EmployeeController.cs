@@ -7,10 +7,15 @@ namespace WafiSolutionAssignment.Controllers
 {
     public class EmployeeController : Controller
     {
+        #region Fields
 
         private readonly IEmployeeService _employeeService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IEmployeeModelFactory _employeeModelFactory;
+
+        #endregion
+
+        #region Ctor
         public EmployeeController(IEmployeeService employeeService,
             IWebHostEnvironment webHostEnvironment,
             IEmployeeModelFactory employeeModelFactory
@@ -21,6 +26,10 @@ namespace WafiSolutionAssignment.Controllers
             _employeeModelFactory = employeeModelFactory;
         }
 
+        #endregion
+
+
+        #region Index GetAll Create Edit Delete
 
         public IActionResult Index()
         {
@@ -76,8 +85,8 @@ namespace WafiSolutionAssignment.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View();
 
+            return View();
         }
 
 
@@ -91,6 +100,7 @@ namespace WafiSolutionAssignment.Controllers
 
             if (employee == null)
                 return NotFound();
+
             var model = _employeeModelFactory.PrepareEmployeeModel(employee);
 
             return View(model);
@@ -118,14 +128,16 @@ namespace WafiSolutionAssignment.Controllers
                 }
 
                 var entity = _employeeModelFactory.PrepareEmployee(employeeModel);
+
                 entity.Id = employeeModel.Id;
                 _employeeService.UpdateEmployee(entity);
 
                 TempData["success"] = "Edited Successfully";
+
                 return RedirectToAction("Index");
             }
-            return View();
 
+            return View();
         }
 
 
@@ -168,6 +180,8 @@ namespace WafiSolutionAssignment.Controllers
             return RedirectToAction("Index");
         }
 
+        #endregion
 
     }
+
 }

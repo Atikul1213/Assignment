@@ -6,13 +6,22 @@ namespace BookHub.Factories
 {
     public class EmployeeModelFactory : IEmployeeModelFactory
     {
+        #region Fields
 
         private readonly IEmployeeService _employeeService;
+
+        #endregion
+
+        #region Ctor
         public EmployeeModelFactory(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
         }
 
+        #endregion
+
+
+        #region Methods
         public EmployeeModel PrepareEmployeeModel(Employee employee)
         {
             if (employee == null)
@@ -83,5 +92,8 @@ namespace BookHub.Factories
 
             return entity;
         }
+
+
+        #endregion
     }
 }
