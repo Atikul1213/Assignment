@@ -81,7 +81,25 @@
     <script>
         $(document).ready(function () {
             // Initialize the datatable
+
+
             var table = $('#myTable1').DataTable({
+                serverSide: true,
+                processing: true,
+                ajax: {
+                    url: "@Url.Action("GetAll", "Employee")",
+                    type: "POST",
+                    searchData: function (d) {
+                        return $.extend({}, d, {
+                            Name: $('#name').val(),
+                            DateOfBirth: $('#dob').val(),
+                            MobileNumber: $('#mobile').val(),
+                            Email: $('#email').val(),
+                            length: d.length,
+                            start: d.start
+                        });
+                    }
+                },
                 "columns": [
                     {
                         "data": "imageUrl", "render": function (data) {
@@ -112,13 +130,15 @@
             function reloadTableData() {
                 var pageLength = table.page.len();
                 var pageStart = table.page.info().start;
-                var searchData = {
-                    Name: $('#name').val(),
-                    DateOfBirth: $('#dob').val(),
-                    MobileNumber: $('#mobile').val(),
-                    Email: $('#email').val(),
-                     length: pageLength,
-                     start: pageStart
+                var searchData= {
+                  
+                        Name: $('#name').val(),
+                        DateOfBirth: $('#dob').val(),
+                        MobileNumber: $('#mobile').val(),
+                        Email: $('#email').val(),
+                        length: pageLength,
+                         start: pageStart
+                    
                 };
                 console.log("searchData: ", searchData);
 
@@ -126,10 +146,9 @@
                     url: '@Url.Action("GetAll", "Employee")',
                     type: 'POST',
                     // contentType: 'application/json',
-                   
-
                     data: searchData,
                     success: function (data) {
+                        console.log("return data: ", data);
                         table.clear();
                         table.rows.add(data);
                         table.draw();
@@ -141,13 +160,13 @@
             }
 
             // Handle form submission
-            $('#searchForm').submit(function (e) {
+            $('#searchForm').click(function (e) {
                 e.preventDefault();
                 reloadTableData();
             });
 
-            // Load initial data
-            reloadTableData();
+            // // Load initial data
+            // reloadTableData();
         });
     </script>
 

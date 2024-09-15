@@ -36,7 +36,7 @@ namespace WafiSolutionAssignment.Controllers
 
             var employees = _employeeModelFactory.PrepareEmployeeListModel(searchModel);
 
-            return Json(employees.EmployeeModel);
+            return Json(new { data = employees.EmployeeModel });
         }
 
 
